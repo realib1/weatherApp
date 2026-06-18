@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <!-- title -->
+  <title>Frontend Mentor | Weather app</title>
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- displays site properly based on user's device -->
+  <link rel="icon" type="image/png" sizes="32x32" href="./assets/images/favicon-32x32.png">
+
+  <!-- font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap"
+    rel="stylesheet">
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="./css/style.css">
+
+  <!-- JS -->
+  <script type="module" src="./js/main.js"></script>
+
+
+</head>
+
+<body>
+  <a href="#main-content" class="skip-link">
+    Skip to main content
+  </a>
+
+  <!-- navigation -->
+  <nav class="nav">
+    <div class="nav__container">
+      <!-- Logo -->
+      <div class="nav__logo">
+        <img src="./assets/images/logo.svg" alt="weather app" class="nav__logo-img" />
+      </div>
+
+      <!-- Units -->
+
+      <div class="nav__units">
+        <button class="nav__units-btn" aria-controls="nav__units-dropdown" aria-expanded="false">
+          <span class="nav__units-icon">
+            <img src="./assets/images/icon-units.svg" alt="" class="nav__units-icon-img" aria-hidden="true" />
+          </span>
+          Units
+          <span class="nav__units-dropdown-icon">
+            <img src="./assets/images/icon-dropdown.svg" alt="" class="nav__units-dropdown-icon-img"
+              aria-hidden="true" />
+          </span>
+        </button>
+
+        <div class="nav__units-dropdown" id="nav__units-dropdown">
+          <button class="nav__units-switch">Switch to Imperial</button>
+          <!-- Temperature -->
+          <fieldset>
+            <legend>Temperature</legend>
+            <label>
+              <input type="radio" name="temperature" value="celsius"> Celsius (°C)
+              <span></span>
+            </label>
+            <label>
+              <input type="radio" name="temperature" value="fahrenheit"> Fahrenheit (°F)
+              <span></span>
+            </label>
+          </fieldset>
+
+          <hr>
+          <!-- Wind Speed -->
+          <fieldset>
+            <legend>Wind Speed</legend>
+            <label>
+              <input type="radio" name="wind-speed" value="kmh">km/h
+              <span></span>
+            </label>
+            <label>
+              <input type="radio" name="wind-speed" value="mph">mph
+              <span></span>
+            </label>
+          </fieldset>
+          <hr>
+          <!-- Precipitation -->
+          <fieldset>
+            <legend>Precipitation</legend>
+            <label>
+              <input type="radio" name="precipitation" value="millimeters">Millimeters (mm)
+              <span></span>
+            </label>
+            <label>
+              <input type="radio" name="precipitation" value="inches">Inches (in)
+              <span></span>
+            </label>
+          </fieldset>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <main id="main-content">
+
+    <!-- Hero section -->
+    <section class="hero">
+      <h1 class="hero__title">
+        How's the sky looking today?
+      </h1>
+
+      <!-- Search -->
+      <div class="hero__search">
+        <div class="search">
+          <div class="search__field">
+            <span class="search__icon">
+              <img src="./assets/images/icon-search.svg" alt="" class="search__icon-img" aria-hidden="true" />
+            </span>
+            <label for="search-input" class="sr-only">Search for a city</label>
+            <input type="text" placeholder="Search for a city, e.g., New York" class="search__input" id="search-input"
+              role="combobox" aria-expanded="false" aria-autocomplete="list" aria-controls="search-suggestions">
+          </div>
+          <div class="search__suggestions" id="search-suggestions" role="listbox" aria-label="Search suggestions"></div>
+          <button type="button" class="search__btn">Search</button>
+        </div>
+      </div>
+    </section>
+
+    <div class="forecast-grid">
+
+      <!-- Left column -->
+      <div class="forecast-grid__main">
+        <!-- Weather card -->
+        <div class="weather-card" aria-live="polite">
+
+          <!-- Location -->
+          <div class="weather-card__location">
+            <p class="weather-card__city"> City, Country </p>
+            <p class="weather-card__date"> DD MM, YY </p>
+          </div>
+          <div class="weather-card__current">
+            <!-- Current temperature -->
+            <img src="" alt="weather icon" class="weather-card__icon" />
+            <!-- Weather condition -->
+            <div class="weather-card__temp">--</div>
+          </div>
+        </div>
+
+        <!--  Loading weather card-->
+        <div class="weather-card__loading" role="status" aria-live="polite">
+          <div class="weather-card__loading-state">
+            <div class="state__dots" aria-hidden="true">
+              <span></span><span></span><span></span>
+            </div>
+            <p>Loading...</p>
+          </div>
+        </div>
+        <!-- Metrics -->
+        <div class="forecast-grid__metrics">
+          <dl class="metrics">
+            <div class="metrics__item">
+              <dt class="metrics__label">
+                Feels like
+              </dt>
+              <!-- Insert temperature here -->
+              <dd class="metrics__value" data-metric="feels-like">--</dd>
+            </div>
+
+            <div class="metrics__item">
+              <dt class="metrics__label">Humidity</dt>
+              <!-- Insert humidity here -->
+              <dd class="metrics__value" data-metric="humidity">--</dd>
+            </div>
+
+            <div class="metrics__item">
+              <dt class="metrics__label">
+                Wind
+              </dt>
+              <!-- Insert wind here -->
+              <dd class="metrics__value" data-metric="wind">--</dd>
+            </div>
+
+            <div class="metrics__item">
+              <dt class="metrics__label">
+                Precipitation
+              </dt>
+              <!-- Insert precipitation here -->
+              <dd class="metrics__value" data-metric="precipitation">--</dd>
+            </div>
+          </dl>
+        </div>
+
+        <!-- Daily forecast -->
+        <div class="forecast-grid__daily">
+
+          <h4 class="forecast-grid__daily-title">
+            Daily forecast
+          </h4>
+          <!-- Insert daily forecast for the next 7 days here -->
+          <div class="forecast-grid__daily-list" aria-busy="true">
+
+            <div class="forecast-grid__daily-item skeleton" aria-hidden="true">
+            </div>
+
+            <div class="forecast-grid__daily-item skeleton" aria-hidden="true">
+            </div>
+
+            <div class="forecast-grid__daily-item skeleton" aria-hidden="true">
+            </div>
+
+            <div class="forecast-grid__daily-item skeleton" aria-hidden="true">
+            </div>
+
+            <div class="forecast-grid__daily-item skeleton" aria-hidden="true">
+            </div>
+
+            <div class="forecast-grid__daily-item skeleton" aria-hidden="true">
+            </div>
+
+            <div class="forecast-grid__daily-item skeleton" aria-hidden="true">
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Right Column -->
+      <div class="forecast-grid__hourly">
+        <!-- Hourly forecast -->
+        <div class="forecast-grid__hourly-header">
+          <h4 class="forecast-grid__hourly-title">
+            Hourly forecast
+          </h4>
+          <button class="forecast-grid__hourly-dropdown-btn" aria-controls="forecast-grid__hourly-dropdown"
+             aria-controls="forecast-grid__hourly-dropdown" aria-label="Choose day for hourly forecast" aria-expanded="false"> <span
+              class="forecast-grid__hourly-dropdown-dash"> - </span> <img
+              class="forecast-grid__hourly-dropdown-icon" src="/assets//images/icon-dropdown.svg" alt=""
+              aria-hidden="true"></button>
+          <div class="forecast-grid__hourly-dropdown" id="forecast-grid__hourly-dropdown">
+          </div>
+        </div>
+
+        <div class="forecast-grid__hourly-list">
+
+          <div class="forecast-grid__hourly-item skeleton" aria-hidden="true">
+
+          </div>
+
+          <div class="forecast-grid__hourly-item skeleton" aria-hidden="true">
+
+          </div>
+
+          <div class="forecast-grid__hourly-item skeleton" aria-hidden="true">
+
+          </div>
+
+          <div class="forecast-grid__hourly-item skeleton" aria-hidden="true">
+
+          </div>
+          <div class="forecast-grid__hourly-item skeleton" aria-hidden="true">
+
+          </div>
+          <div class="forecast-grid__hourly-item skeleton" aria-hidden="true">
+
+          </div>
+          <div class="forecast-grid__hourly-item skeleton" aria-hidden="true">
+
+          </div>
+          <div class="forecast-grid__hourly-item skeleton" aria-hidden="true">
+
+          </div>
+          <div class="forecast-grid__hourly-item skeleton" aria-hidden="true">
+
+          </div>
+          <div class="forecast-grid__hourly-item skeleton" aria-hidden="true">
+
+          </div>
+          <div class="forecast-grid__hourly-item skeleton" aria-hidden="true">
+
+          </div>
+          <div class="forecast-grid__hourly-item skeleton" aria-hidden="true">
+
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Loading container -->
+
+    <!-- No results found -->
+    <div class="state state--no-results" role="status" aria-live="polite">
+      <p>No search results found!</p>
+    </div>
+
+
+    <!-- Error state -->
+    <div class="state state--error" role="alert">
+      <img src="./assets/images/icon-error.svg" alt="Error" class="error-img">
+      <h2>Something went wrong</h2>
+      <p>We couldn't connect to the server (API error). Please try again in a few moments.</p>
+      <button class="state__retry-btn" aria-label="Retry loading weather data">
+        <img src="./assets/images/icon-retry.svg" alt="" class="retry-btn" aria-hidden="true"> Retry
+      </button>
+    </div>
+
+  </main>
+  <footer class="attribution">
+    Challenge by &nbsp; <a href="https://www.frontendmentor.io?ref=challenge">Frontend Mentor</a>. &nbsp;
+    Coded by &nbsp; <a href="#">NAME</a>.
+  </footer>
+</body>
+
+</html>
