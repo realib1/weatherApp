@@ -53,6 +53,7 @@ const updateWeatherCard = (location, data, unit) => {
   weatherDate.textContent = `${formatDate(data.current.time)}`;
   weatherTemp.textContent = `${convertTemp(data.current.temperature_2m, unit)}°`;
   weatherIcon.src = `${icon}`;
+  weatherIcon.hidden = false;
   weatherIcon.alt = getWeatherDescription(code);
 };
 

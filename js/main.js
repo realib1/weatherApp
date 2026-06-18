@@ -12,9 +12,9 @@ import {
   showState,
 } from "./ui.js";
 
-let isOpen;
 const navUnits = document.querySelector(".nav__units");
 const navUnitsDropdown = document.querySelector(".nav__units-dropdown");
+const switchBtn = document.querySelector(".nav__units-switch");
 const navUnitsBtn = document.querySelector(".nav__units-btn");
 const searchInput = document.querySelector(".search__input");
 const searchBtn = document.querySelector(".search__btn");
@@ -29,16 +29,41 @@ const hourlyDropdownDash = document.querySelector(
   ".forecast-grid__hourly-dropdown-dash",
 );
 
+const rerender = () => {
+  if (!state.location || !state.weatherData) return;
+
+  updateWeatherCard(state.location, state.weatherData, state.units.temperature);
+  updateMetrics(state.weatherData, state.units);
+  updateDailyForecast(state.weatherData, state.units);
+  updateHourlyDropdown(state.weatherData); 
+  updateHourlyForecast(state.weatherData, state.units, state.selectedDay);
+};
+
+const syncUnitRadios = () => {
+  const { temperature, wind, precipitation } = state.units;
+
+  const tempRadio = document.querySelector(
+    `input[name="temperature"][value="${temperature}"]`
+  );
+  if (tempRadio) tempRadio.checked = true;
+
+  const windRadio = document.querySelector(
+    `input[name="wind-speed"][value="${wind}"]`
+  );
+  if (windRadio) windRadio.checked = true;
+
+  const precRadio = document.querySelector(
+    `input[name="precipitation"][value="${precipitation}"]`
+  );
+  if (precRadio) precRadio.checked = true;
+};
+
 // Load weather data for display in UI
 const loadWeather = (location, data) => {
   state.location = location;
   state.weatherData = data;
   state.selectedDay = 0;
-  updateWeatherCard(location, data, state.units.temperature);
-  updateMetrics(data, state.units);
-  updateDailyForecast(data, state.units);
-  updateHourlyDropdown(data);
-  updateHourlyForecast(data, state.units, state.selectedDay);
+  rerender();
   hourlyDropdownDash.textContent = formatDayName(
     data.daily.time[state.selectedDay],
   );
@@ -103,13 +128,14 @@ searchSuggestions.addEventListener("click", (e) => {
 });
 
 hourlyDropdownBtn.addEventListener("click", () => {
-  hourlyDropdown.classList.toggle("forecast-grid__hourly-dropdown--active");
-});
+  hourlyDropdownBtn.addEventListener("click", () => {
+    const isOpen = hourlyDropdown.classList.toggle(
+      "forecast-grid__hourly-dropdown--active",
+    );
 
-hourlyDropdownBtn.setAttribute(
-  "aria-expanded",
-  isOpen ? "true" : "false"
-);
+    hourlyDropdownBtn.setAttribute("aria-expanded", String(isOpen));
+  });
+});
 
 hourlyDropdown.addEventListener("change", (e) => {
   const selectedIndex = +e.target.value;
@@ -143,10 +169,12 @@ const initGeolocation = () => {
 initGeolocation();
 // Nav units dropdown
 navUnitsBtn.addEventListener("click", () => {
-  navUnitsDropdown.classList.toggle("nav__units-dropdown--active");
-});
+  const isOpen = navUnitsDropdown.classList.toggle(
+    "nav__units-dropdown--active",
+  );
 
-navUnitsBtn.setAttribute("aria-expanded", isOpen ? "true" : "false");
+  navUnitsBtn.setAttribute("aria-expanded", String(isOpen));
+});
 
 document.addEventListener("click", (e) => {
   if (!navUnits.contains(e.target)) {
@@ -162,8 +190,23 @@ navUnitsDropdown.addEventListener("change", (e) => {
   if (name === "temperature") state.units.temperature = value;
   if (name === "wind-speed") state.units.wind = value;
   if (name === "precipitation") state.units.precipitation = value;
-  updateWeatherCard(state.location, state.weatherData, state.units.temperature);
-  updateMetrics(state.weatherData, state.units);
-  updateDailyForecast(state.weatherData, state.units);
-  updateHourlyForecast(state.weatherData, state.units, state.selectedDay);
+
+  syncUnitRadios()
+  rerender();
+});
+
+// Switch Imperial
+switchBtn.addEventListener("click", () => {
+  const toImperial = state.units.temperature === "celsius";
+
+  state.units.temperature = toImperial ? "fahrenheit" : "celsius";
+  state.units.wind = toImperial ? "mph" : "kmh";
+  state.units.precipitation = toImperial ? "inches" : "millimeters";
+
+  switchBtn.textContent = toImperial
+    ? "Switch to Metric"
+    : "Switch to Imperial";
+
+  syncUnitRadios()
+  rerender();
 });

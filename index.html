@@ -43,7 +43,7 @@
       <!-- Units -->
 
       <div class="nav__units">
-        <button class="nav__units-btn" aria-controls="nav__units-dropdown" aria-expanded="false">
+        <button type="button" class="nav__units-btn" aria-controls="nav__units-dropdown" aria-expanded="false">
           <span class="nav__units-icon">
             <img src="./assets/images/icon-units.svg" alt="" class="nav__units-icon-img" aria-hidden="true" />
           </span>
@@ -55,16 +55,16 @@
         </button>
 
         <div class="nav__units-dropdown" id="nav__units-dropdown">
-          <button class="nav__units-switch">Switch to Imperial</button>
+          <button type="button" class="nav__units-switch">Switch to Imperial</button>
           <!-- Temperature -->
           <fieldset>
             <legend>Temperature</legend>
             <label>
-              <input type="radio" name="temperature" value="celsius"> Celsius (°C)
-              <span></span>
+              <input class="temp-radio" type="radio" name="temperature" value="celsius"> Celsius (°C)
+              <span class="radio-control"></span>
             </label>
             <label>
-              <input type="radio" name="temperature" value="fahrenheit"> Fahrenheit (°F)
+              <input class="temp-radio" type="radio" name="temperature" value="fahrenheit"> Fahrenheit (°F)
               <span></span>
             </label>
           </fieldset>
@@ -74,11 +74,11 @@
           <fieldset>
             <legend>Wind Speed</legend>
             <label>
-              <input type="radio" name="wind-speed" value="kmh">km/h
+              <input class="wind-radio" type="radio" name="wind-speed" value="kmh">km/h
               <span></span>
             </label>
             <label>
-              <input type="radio" name="wind-speed" value="mph">mph
+              <input class="wind-radio" type="radio" name="wind-speed" value="mph">mph
               <span></span>
             </label>
           </fieldset>
@@ -87,11 +87,11 @@
           <fieldset>
             <legend>Precipitation</legend>
             <label>
-              <input type="radio" name="precipitation" value="millimeters">Millimeters (mm)
+              <input class="precipitation-radio" type="radio" name="precipitation" value="millimeters">Millimeters (mm)
               <span></span>
             </label>
             <label>
-              <input type="radio" name="precipitation" value="inches">Inches (in)
+              <input class="precipitation-radio" type="radio" name="precipitation" value="inches">Inches (in)
               <span></span>
             </label>
           </fieldset>
@@ -139,7 +139,7 @@
           </div>
           <div class="weather-card__current">
             <!-- Current temperature -->
-            <img src="" alt="weather icon" class="weather-card__icon" />
+            <img hidden alt="weather icon" class="weather-card__icon" />
             <!-- Weather condition -->
             <div class="weather-card__temp">--</div>
           </div>
@@ -192,9 +192,9 @@
         <!-- Daily forecast -->
         <div class="forecast-grid__daily">
 
-          <h4 class="forecast-grid__daily-title">
+          <h2 class="forecast-grid__daily-title">
             Daily forecast
-          </h4>
+          </h2>
           <!-- Insert daily forecast for the next 7 days here -->
           <div class="forecast-grid__daily-list" aria-busy="true">
 
@@ -228,10 +228,10 @@
       <div class="forecast-grid__hourly">
         <!-- Hourly forecast -->
         <div class="forecast-grid__hourly-header">
-          <h4 class="forecast-grid__hourly-title">
+          <h2 class="forecast-grid__hourly-title">
             Hourly forecast
-          </h4>
-          <button class="forecast-grid__hourly-dropdown-btn" aria-controls="forecast-grid__hourly-dropdown"
+          </h2>
+          <button type="button" class="forecast-grid__hourly-dropdown-btn" aria-controls="forecast-grid__hourly-dropdown"
              aria-controls="forecast-grid__hourly-dropdown" aria-label="Choose day for hourly forecast" aria-expanded="false"> <span
               class="forecast-grid__hourly-dropdown-dash"> - </span> <img
               class="forecast-grid__hourly-dropdown-icon" src="/assets//images/icon-dropdown.svg" alt=""
